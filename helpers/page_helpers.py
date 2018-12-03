@@ -101,6 +101,7 @@ def get_default_context(request):
     return context
 
 
+
 ################################################################################
 # Variables dependent on Application basic functions
 ################################################################################

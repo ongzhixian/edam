@@ -39,7 +39,7 @@
                 <!-- <button class="pure-button">REM</button> -->
             </h2>
 
-            <table class="pure-table">
+            <table class="pure-table resource-types hide">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -47,10 +47,8 @@
                         <th>Description</th>
                         <th>Number</th>
                         <th>Actions</th>
-
                     </tr>
                 </thead>
-            
                 <tbody>
                     <tr class="pure-table-odd">
                         <td>1</td>
@@ -86,6 +84,8 @@
             
                 </tbody>
             </table>
+            <p id="resource_types_message">There are no defined resource types.</p>
+            
 
             <h2 class="content-subhead">List</h2>
 
@@ -220,40 +220,25 @@
     <div class="modal-content" style="text-align:center;">
         <span class="close">&times;</span>
 
-        <form method="POST">
+        <form method="POST" >
 
             <h1>Add resource type</h1>
 
             <table class="pure-table pure-table-horizontal" style="margin:0 auto; text-align: right;">
-                <!--
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Make</th>
-                            <th>Model</th>
-                            <th>Year</th>
-                        </tr>
-                    </thead>
-                -->
-            
                 <tbody>
                     <tr>
                         <td><label>Type</label></td>
-                        <td><input type="text" maxlength="3" /></td>
+                        <td><input type="text" maxlength="3" id="resource_type_name" name="resource_type_name" /></td>
                     </tr>
                     <tr>
                         <td><label>Description</label></td>
-                        <td><input type="text" maxlength="64" /></td>
-                    </tr>
-                    <tr>
-                        <td><label>Number</label></td>
-                        <td><input type="number" /></td>
+                        <td><input type="text" maxlength="64" id="resource_type_description" name="resource_type_description" /></td>
                     </tr>
                 </tbody>
             </table>
 
             <p>
-                <button type="button" class="pure-button">Register resource type</button>
+                <button type="button" id="register_resource_type_button" class="pure-button">Register resource type</button>
             </p>
         </form>
     </div>
@@ -334,6 +319,173 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+function ajaxReq() {
+    if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    } else {
+        window.alert("Browser does not support XMLHTTP.");
+        return false;
+    }
+}
+
+var ajax = {
+    "getRequest" : function() {
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            console.log("Browser does not support XMLHTTP.");
+            return false;
+        }
+    }
+};
+
+
+function domReady () {
+    //document.body.className += " javascript";
+    // ...
+    // Get data
+    console.log("domReady FIRED");
+    var action = "/api/ram/list/resource-type"
+    var xhr = ajax.getRequest();
+    xhr.onreadystatechange = function () {
+        var DONE = 4; // readyState 4 means the request is done.
+        var OK = 200; // status 200 is a successful return.
+        if (xhr.readyState === DONE) {
+            if (xhr.status === OK) {
+                console.log(xhr.responseText); // 'This is the returned text.'
+                var pj = JSON.parse(xhr.responseText);
+                
+                //var old_tbody = document.querySelectorAll("table.resource-types tbody");
+                //var old_tbody = document.querySelectorAll("table.resource-types tbody");
+                //debugger;
+                //old_tbody.remove();
+                // document.getElementsByClassName("table.resource-types")
+                //var new_tbody = document.createElement('tbody');
+                //debugger;
+                
+                if (pj) {
+                    if (pj.length === 0) {
+                        document.querySelector("table.resource-types").classList.add("hide");
+                        document.getElementById("resource_types_message").classList.remove("hide");
+                    } else {
+                        var tbl = document.querySelector("table.resource-types");
+                        var new_tbody = tbl.createTBody();
+                        var row_idx = 0;
+                        
+                        for (row_idx = 0; row_idx < pj.length; row_idx++) {
+                            var row = new_tbody.insertRow(row_idx);
+                            
+                            var cell0 = row.insertCell(0);
+                            var cell1 = row.insertCell(1);
+                            var cell2 = row.insertCell(2);
+                            var cell3 = row.insertCell(3);
+                            var cell4 = row.insertCell(4);
+                            
+                            cell0.innerHTML = (row_idx+1).toString();
+                            cell1.innerHTML = pj[row_idx]["name"];
+                            cell2.innerHTML = pj[row_idx]["description"];
+                            cell3.innerHTML = pj[row_idx]["count"];
+                            cell4.innerHTML = "<a href='#'>Remove</a>";
+                        }
+                        
+                        tbl.tBodies[0].remove(); // Remove the old tbody
+                        
+                        document.getElementById("resource_types_message").classList.add("hide");
+                        document.querySelector("table.resource-types").classList.remove("hide");
+                    }
+                }
+
+            } else {
+                console.log('Error: ' + xhr.status); // An error occurred during the request.
+            }
+        }
+
+        
+        // xhr.setRequestHeader('Content-Type', 'application/json');
+        // var type_name = document.getElementById("resource_type_name").value;
+        // var type_desc = document.getElementById("resource_type_description").value;
+        // var type_count = document.getElementById("resource_type_count").value;
+
+        // application/x-www-form-urlencoded
+        // var post_data = encodeURI('name=');
+
+        // var post_data = {
+        //     "name" : type_name,
+        //     "des" : type_desc,
+        //     "count" : type_count
+        // };
+        // console.log(post_data);
+    }
+    xhr.open('POST', action);
+    xhr.send(null);
+
+}
+
+// jQuery's document.ready event equivalent
+// Mozilla, Opera, Webkit 
+if ( document.addEventListener ) {
+  document.addEventListener( "DOMContentLoaded", function() {
+    document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
+    domReady();
+  }, false );
+
+// If IE event model is used
+} else if ( document.attachEvent ) {
+  // ensure firing before onload
+  document.attachEvent("onreadystatechange", function(){
+    if ( document.readyState === "complete" ) {
+      document.detachEvent( "onreadystatechange", arguments.callee );
+      domReady();
+    }
+  });
+}
+
+var reg_button = document.getElementById("register_resource_type_button");
+reg_button.onclick = function (ev) {
+    console.log("reg_button is clicked");
+
+    // Generate AJAX call
+    var action = "/api/ram/register/resource-type"
+
+    var xhr = ajax.getRequest();
+    //var xhr = new XMLHttpRequest();
+    //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+    xhr.onreadystatechange = function () {
+        var DONE = 4; // readyState 4 means the request is done.
+        var OK = 200; // status 200 is a successful return.
+        if (xhr.readyState === DONE) {
+            if (xhr.status === OK) {
+                console.log(xhr.responseText); // 'This is the returned text.'
+            } else {
+                console.log('Error: ' + xhr.status); // An error occurred during the request.
+            }
+        }
+    }
+
+    xhr.open('POST', action);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    var type_name = document.getElementById("resource_type_name").value;
+    var type_desc = document.getElementById("resource_type_description").value;
+    //var type_count = document.getElementById("resource_type_count").value;
+
+    // application/x-www-form-urlencoded
+    //var post_data = encodeURI('name=' + type_name + "&desc=" + type_desc + "&count=" + type_count);
+
+    var post_data = {
+        "name" : type_name,
+        "des" : type_desc
+    };
+    console.log(post_data);
+    xhr.send(JSON.stringify(post_data));
+};
+
 
 </script>
 {% endblock %}

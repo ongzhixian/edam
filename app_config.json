@@ -11,5 +11,15 @@
         "example": {
             "sqlite3_filename"  : "./data/sqlite3/url_kb.sqlite3"
         }
+    },
+    "mongodb" : {
+        "hci_admin" : {
+            "username" : "developer",
+            "password" : "password1234",
+            "hostname" : "ds123444.mlab.com",
+            "port"     : "23444",
+            "database" : "hci_admin"
+        }
     }
+
 }
