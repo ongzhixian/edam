@@ -14,7 +14,9 @@
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="/css/site/side-menu.css">
     <!--<![endif]-->
-    
+
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    {% block linktags %}{% endblock %}
 </head>
 <body>
 {% block content %}
@@ -87,6 +89,7 @@
 
 
 <script src="/js/site/ui.js"></script>
+{% block scripts %}{% endblock %}
 
 </body>
 </html>

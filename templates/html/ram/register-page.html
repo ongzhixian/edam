@@ -1,0 +1,339 @@
+{% extends "./html/_layouts/_default.html" %}
+
+{% block title %} RAM {{SITE_NAME}} {% endblock %}
+
+{% block content %}
+
+<div id="layout">
+    {{ macros.render_responsive_menu_button() }}
+
+    {{ macros.render_menu("Resources") }}
+
+    <div id="main">
+        <div class="header">
+            <h1>Resources</h1>
+            <!--
+                <h2>Home page.</h2>
+            -->
+        </div>
+       
+        <div class="content">
+            <div class="pure-menu pure-menu-horizontal">
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+                    <li class="pure-menu-item pure-menu-selected"><a href="/ram/register" class="pure-menu-link">Register</a></li>
+                    <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Report</a></li>
+                    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                        <a href="#" id="menuLink1" class="pure-menu-link">more</a>
+                        <ul class="pure-menu-children">
+                            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Email</a></li>
+                            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Twitter</a></li>
+                            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tumblr Blog</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <h2 class="content-subhead">Resource types
+                <button id="myBtn" class="pure-button">+</button>
+                <!-- <button class="pure-button">REM</button> -->
+            </h2>
+
+            <table class="pure-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Number</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    <tr class="pure-table-odd">
+                        <td>1</td>
+                        <td>CRM</td>
+                        <td>Room</td>
+                        <td>1</td>
+                        <td><a href="#">Remove</a></td>
+                    </tr>
+            
+                    <tr>
+                        <td>2</td>
+                        <td>PRJ</td>
+                        <td>Projector</td>
+                        <td>2</td>
+                        <td><a href="#">Remove</a></td>
+                    </tr>
+            
+                    <tr class="pure-table-odd">
+                        <td>3</td>
+                        <td>BLZ</td>
+                        <td>Blazer</td>
+                        <td>50</td>
+                        <td><a href="#">Remove</a></td>
+                    </tr>
+            
+                    <tr>
+                        <td>4</td>
+                        <td>KEY</td>
+                        <td>Key</td>
+                        <td>4</td>
+                        <td><a href="#">Remove</a></td>
+                    </tr>
+            
+                </tbody>
+            </table>
+
+            <h2 class="content-subhead">List</h2>
+
+            <table class="pure-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    <tr class="pure-table-odd">
+                        <td>1</td>
+                        <td><a href="#" title="Display list of this resource type">CRM</a></td>
+                        <td><a href="#" title="Display calendar of this resource utilization">Accord room</a></td>
+                        <td><span title="Display who is/will be using this resource">Available</span></td>
+                        <td><a href="#" title="Go to booking page">Book</a></td>
+                    </tr>
+            
+                    <tr>
+                        <td>2</td>
+                        <td>CRM</td>
+                        <td>Camry room</td>
+                        <td>In use</td>
+                        <td><a href="#">Book</a></td>
+                    </tr>
+            
+                    
+                    <tr class="pure-table-odd">
+                        <td>3</td>
+                        <td>PRJ</td>
+                        <td>Elantra</td>
+                        <td>In use</td>
+                        <td><a href="#">Book</a></td>
+                    </tr>
+                    
+                    <!--
+                        <tr>
+                            <td>4</td>
+                            <td>Ford</td>
+                            <td>Focus</td>
+                            <td>2008</td>
+                        </tr>
+                        
+                        <tr class="pure-table-odd">
+                            <td>5</td>
+                            <td>Nissan</td>
+                            <td>Sentra</td>
+                            <td>2011</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>6</td>
+                            <td>BMW</td>
+                            <td>M3</td>
+                            <td>2009</td>
+                        </tr>
+                        
+                        <tr class="pure-table-odd">
+                            <td>7</td>
+                            <td>Honda</td>
+                            <td>Civic</td>
+                            <td>2010</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>8</td>
+                            <td>Kia</td>
+                            <td>Soul</td>
+                            <td>2010</td>
+                        </tr>
+                    -->
+
+                </tbody>
+            </table>
+
+            <!--
+            <p>
+                To use this layout, you can just copy paste the HTML, along with the CSS in <a href="/css/layouts/side-menu.css" alt="Side Menu CSS">side-menu.css</a>, and the JavaScript in <a href="/js/ui.js">ui.js</a>. The JS file uses vanilla JavaScript to simply toggle an <code>active</code> class that makes the menu responsive.
+            </p>
+
+
+                <h2 class="content-subhead">Now Let's Speak Some Latin</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                
+                <div class="pure-g">
+                    <div class="pure-u-1-4">
+                        <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2875/9069037713_1752f5daeb.jpg" alt="Peyto Lake">
+                    </div>
+                    <div class="pure-u-1-4">
+                        <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2813/9069585985_80da8db54f.jpg" alt="Train">
+                    </div>
+                    <div class="pure-u-1-4">
+                        <img class="pure-img-responsive" src="http://farm6.staticflickr.com/5456/9121446012_c1640e42d0.jpg" alt="T-Shirt Store">
+                    </div>
+                    <div class="pure-u-1-4">
+                        <img class="pure-img-responsive" src="http://farm8.staticflickr.com/7357/9086701425_fda3024927.jpg" alt="Mountain">
+                    </div>
+                </div>
+                
+                <h2 class="content-subhead">Try Resizing your Browser</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            -->
+            </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" style="text-align:center;">
+        <span class="close">&times;</span>
+
+        <form method="POST">
+
+            <h1>Add resource type</h1>
+
+            <table class="pure-table pure-table-horizontal" style="margin:0 auto; text-align: right;">
+                <!--
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                        </tr>
+                    </thead>
+                -->
+            
+                <tbody>
+                    <tr>
+                        <td><label>Type</label></td>
+                        <td><input type="text" maxlength="3" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Description</label></td>
+                        <td><input type="text" maxlength="64" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Number</label></td>
+                        <td><input type="number" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <button type="button" class="pure-button">Register resource type</button>
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block linktags %}
+<style>
+    /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
+
+
+
+{% block scripts %}
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
+{% endblock %}
