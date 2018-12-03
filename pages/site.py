@@ -31,7 +31,7 @@ def static(filename):
 @route('/')
 def display_home_page(errorMessages=None):
     context = get_default_context(request)
-    response.set_cookie('username', 'the username')
+    #response.set_cookie('username', 'the username')
     return jinja2_env.get_template('html/site/home-page.html').render(context)
 
 @route('/about')
@@ -45,6 +45,7 @@ def display_contact_page(errorMessages=None):
     return jinja2_env.get_template('html/site/contact-page.html').render(context)
 
 @route('/services')
+@require_authentication
 def display_services_page(errorMessages=None):
     context = get_default_context(request)
     return jinja2_env.get_template('html/site/services-page.html').render(context)

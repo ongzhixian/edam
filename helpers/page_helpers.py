@@ -5,6 +5,7 @@
 import logging
 import os
 import time
+import urllib
 import uuid
 import bottle
 import page_helpers
@@ -22,10 +23,13 @@ def require_authentication(fn):
     logging.debug("IN require_authentication(%s)" % str(fn))
     def wrapper(*args, **kwargs):
         # print 'function %s called with positional args %s and keyword args %s' % (fn.__name__, args, kwargs)
-        auth_cookie_id = request.cookies.get('appconfig["application"][auth_cookie_name]')
+        auth_cookie_id = request.cookies.get(appconfig["application"]["auth_cookie_name"])
         if not auth_cookie_id:
             logging.debug("IN auth cookie not exists")
-            # redirect("/login")
+            login_url = "/login?from={0}".format(urllib.quote(request.url))
+            #logging.debug(login_url)
+            redirect(login_url)
+            #redirect("/login")
             return fn(*args, **kwargs)
         else:
             logging.debug("IN auth cookie exists")
@@ -85,7 +89,8 @@ def get_app():
 
     # add application hooks here
     # TODO: Add setup for add_auth_cookie_hook; it needs a sessions folder in data folder
-    app.add_hook('after_request', add_auth_cookie_hook)
+    # Uncomment the below line to allow anonymous login
+    # app.add_hook('after_request', add_auth_cookie_hook)
     return app
 
 def get_default_context(request):
