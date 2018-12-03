@@ -1,0 +1,111 @@
+{########################################}
+{# 
+    List of macros defined in this file:
+
+    1.  render_responsive_menu_button()
+    2.  render_menu()
+
+    1.  page_header(active_text, sub_title)
+    2.  page_footer()
+
+#}
+{########################################}
+
+
+{########################################}
+{# Render "Hamburger" button #}
+{########################################}
+
+{% macro render_responsive_menu_button() %}
+<!-- Menu toggle -->
+<a href="#menu" id="menuLink" class="menu-link">
+    <!-- Hamburger icon -->
+    <span></span>
+</a>
+{% endmacro %}
+
+{########################################}
+{# Render "Menu" button #}
+{########################################}
+
+{% macro render_menu(active_text) %}
+{% 
+    set menu_items = [
+        { 'href' : "/", 'text' : "Home" },
+        { 'href' : "/about", 'text' : "About" },
+        { 'href' : "/services", 'text' : "Services" },
+        { 'href' : "/contact", 'text' : "Contact" }
+    ]
+%}
+
+<div id="menu">
+    <div class="pure-menu">
+        <a class="pure-menu-heading" href="#">Company</a>
+
+        <ul class="pure-menu-list">
+            {% for item in menu_items %}
+            {% if active_text == item.text %}
+            <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                <a href="{{item.href}}" class="pure-menu-link">{{item.text}}</a>
+            </li>
+            {% else %}
+            <li class="pure-menu-item"><a href="{{item.href}}" class="pure-menu-link">{{item.text}}</a></li>
+            {% endif %}
+            {%- endfor %}
+        </ul>
+    </div>
+</div>
+{% endmacro %}
+
+
+
+
+
+
+{########################################}
+{# Page header #}
+{########################################}
+
+{% macro page_header(active_text, sub_title) %}
+{% 
+    set menu_items = [
+        { 'href' : "/", 'text' : "Home" },
+        { 'href' : "/about", 'text' : "About" },
+        { 'href' : "/contact", 'text' : "Contact" }
+    ]
+%}
+<div class="row">
+    <div class="twelve columns">
+        <h1 class="page-header">{{SITE_NAME}}
+            {% if sub_title|length > 0 %}
+            <small>{{sub_title}}</small>
+            {% endif %}
+        </h1>
+        <nav class="top-navbar">
+            {% for item in menu_items %}
+            {% if active_text == item.text %}
+            <a href="{{item.href}}" class="active">{{item.text}}</a>
+            {% else %}
+            <a href="{{item.href}}">{{item.text}}</a>
+            {% endif %}
+            {%- endfor %}
+        </nav>
+    </div>
+</div><!--end of .row .twelve.columns -->
+{% endmacro %}
+
+{########################################}
+{# Page footer #}
+{########################################}
+
+{% macro page_footer() %}
+<div class="row">
+        <div class="twelve columns">
+            <hr/>
+            <div>
+                <span>Copyright © {{datetime()|year}} {{SITE_NAME}}</span>
+                <span style="float:right;">version {{VERSION}} (last updated {{VERSION_DATE}})</span>
+            </div>
+        </div>
+    </div><!--end of .row .twelve.columns -->
+{% endmacro %}

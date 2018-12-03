@@ -1,0 +1,15 @@
+{
+    "application": {
+        "application_name"  : "Edam",
+        "auth_cookie_name"  : "edam-auth",
+        "site_name"         : "Edam",
+        "description"       : "Mini python applications",
+        "version"           : "0.1",
+        "version_date"      : "2018-12-03"
+    },
+    "sqlite3" :{
+        "example": {
+            "sqlite3_filename"  : "./data/sqlite3/url_kb.sqlite3"
+        }
+    }
+}
