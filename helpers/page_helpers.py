@@ -94,12 +94,21 @@ def get_app():
     return app
 
 def get_default_context(request):
+    logging.info("IN get_default_context")
+    logging.info(appconfig["application"]["application_name"])
+    logging.info(appconfig["application"]["version"])
+    logging.info(appconfig["application"]["version_date"])
+    logging.info(appconfig["application"]["auth_cookie_name"])
+
     context = {
+        'application_name' : appconfig["application"]["application_name"],
+        'name' : appconfig["application"]["application_name"],
+        'version_number' : appconfig["application"]["version"],
+        'version_date' : appconfig["application"]["version_date"], 
         'auth_cookie'       : request.cookies.get(appconfig["application"]["auth_cookie_name"]),
         'current_datetime'  : datetime.now()
     }
     return context
-
 
 
 ################################################################################

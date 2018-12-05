@@ -36,12 +36,22 @@
         { 'href' : "/about", 'text' : "About" },
         { 'href' : "/services", 'text' : "Services" },
         { 'href' : "/ram", 'text' : "Resources" },
-        { 'href' : "/contact", 'text' : "Contact" }
+        { 'href' : "/contact", 'text' : "Contact" },
+        { 'href' : "/logout", 'text' : "Log out" }
     ]
 %}
 <div id="menu">
     <div class="pure-menu">
-        <a class="pure-menu-heading" href="#">Company</a>
+        
+        <a class="pure-menu-heading" href="javascript:void(0);">COMPANY
+            {{name}}
+            <br/>
+            <small>version {{version_number}}</small>
+            <br/>
+            {#
+                <small>({{auth_id.split('|')[0]}})</small>
+                #}
+        </a>
 
         <ul class="pure-menu-list">
             {% for item in menu_items %}
