@@ -1,0 +1,4 @@
+# cron:
+# - description: "Synchronise loan applications made via Google Forms"
+#   url: /sync
+#   schedule: every 15 minutes

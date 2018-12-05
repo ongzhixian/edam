@@ -6,4 +6,22 @@
 
 # An example
 bottle
+jinja2
+pymongo
 #pytest
+
+
+#Flask==0.10
+#google-api-python-client
+#oauth2client
+#Markdown==2.5.2
+#Flask==0.12.2
+# six
+# Going to use built-in datastore
+# pymongo
+# google-cloud-datastore==1.3.0
+#Pillow
+#qrcode
+
+#
+# pip install -t lib -r requirements.txt
