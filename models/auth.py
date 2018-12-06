@@ -29,7 +29,7 @@ class Company(ndb.Model):
                 'key' : rec.key.urlsafe(),
                 'name' : rec.name,
                 'full_name' : rec.full_name,
-                'abbreviation' : rec.abbreviation
+                'abbreviation' : rec.abbreviation,
                 'description' : rec.description,
                 'registration_date' : rec.registration_date
             })
@@ -49,8 +49,8 @@ class Company(ndb.Model):
 
 class Login(ndb.Model):
     login_name = ndb.StringProperty(required=True)
-    password_hash = ndb.StringProperty(required=True)
     password_salt = ndb.StringProperty(required=True)
+    password_hash = ndb.StringProperty(required=True)
     last_login_datetime = ndb.DateTimeProperty(required=False)
     last_password_update_datetime = ndb.DateTimeProperty(required=False)
     login_attempts_left = ndb.IntegerProperty(default=6, required=True)
@@ -63,11 +63,18 @@ class Login(ndb.Model):
         return hash_func.hexdigest()
 
     @staticmethod
+    def get_salt():
+        return "GEN0"
+
+    @staticmethod
     def register_login(username, password):
         new_ent = Login()
         new_ent.login_name = username
-        new_ent.password_salt = password_salt
-        new_ent.password_hash = Login.get_hash(password_salt + password)
+        new_ent.password_salt = Login.get_salt()
+        new_ent.password_hash = Login.get_hash(new_ent.password_salt + password)
+        new_ent.last_login_datetime = None
+        new_ent.last_password_update_datetime = None
+        new_ent.login_attempts_left = 6
         return new_ent.put()
 
 # class UserProfile(ndb.Model):

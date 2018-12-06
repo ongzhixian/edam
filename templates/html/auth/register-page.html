@@ -1,0 +1,61 @@
+{% extends "./html/_layouts/_auth.html" %}
+
+{% block title %} Home {{SITE_NAME}} {% endblock %}
+
+{% block content %}
+
+<div id="layout">
+    
+    <div id="main">
+        <div class="header">
+
+        </div>
+
+        <div class="content">
+
+            <form method="POST">
+
+                <div class="pure-g">
+                    <div class="pure-u-1" style="text-align:center;">
+                        <h1>
+                            Register
+                        </h1>
+                        <h2>{{ERROR_MESSAGE}}</h2>
+                        <h2>{{MESSAGE.category}}</h2>
+                        <h2>{{MESSAGE.text}}</h2>
+                    </div>
+
+
+                    <div class="pure-u-2-5" style="text-align: right;">
+                        <!-- <label for="username_field">Username</label> -->
+                    </div>
+                    <div class="pure-u-3-5">
+                        <input type="text" id="username_field" name="username_field" placeholder="Username" />
+                    </div>
+                </div>
+
+                <div class="pure-g">
+                        <div class="pure-u-2-5" style="text-align: right;">
+                        <!-- <label for="password_field">Password</label> -->
+                    </div>
+                    <div class="pure-u-3-5">
+                        <input type="password" id="password_field" name="password_field" placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="pure-g">
+                        <div class="pure-u-2-5" style="text-align: right;"></div>
+                    <div class="pure-u-3-5">
+                        <p>
+                            <button type="submit" class="pure-button">Register</button>
+                        </p>
+                    </div>
+                </div>
+                
+            </form>
+            
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -9,7 +9,7 @@ import os
 ################################################################################
 
 if 'SERVER_SOFTWARE' in os.environ:
-    __all__ = ["demo", "test"]
+    __all__ = ["demo", "test", "auth"]
     #https://cloud.google.com/appengine/docs/standard/python/how-requests-are-handled#environment
 else:
-    __all__ = ["demo", "test"]
+    __all__ = ["demo", "test", "auth"]
