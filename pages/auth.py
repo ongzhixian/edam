@@ -30,6 +30,16 @@ def isValidCredential(username, password):
 # Setup commonly used routes
 ################################################################################
 
+# @route('/login')
+# def display_login_page(errorMessages=None):
+#     '''  
+#     Login page
+#     '''
+#     logging.debug("IN display_login_page()")
+#     context = get_default_context(request)
+#     return jinja2_env.get_template('html/site/login-page.html').render(context)
+
+
 @route('/login', method=['POST','GET'])
 def display_login_page(errorMessages=None):
     context = get_default_context(request)
@@ -54,8 +64,11 @@ def display_login_page(errorMessages=None):
             # for x in request.params:
             #     logging.debug(x)
             # pass
+            logging.info("AFTER AUTH OK")
             if "from" in request.params:
+                logging.info("in from")
                 from_url = urllib.unquote(request.params["from"])
+                logging.info("from_url is:[{0}]".format(from_url))
                 #logging.debug("from_url is {0}".format(from_url))
                 redirect(from_url)
         else:
@@ -63,3 +76,20 @@ def display_login_page(errorMessages=None):
             context['ERROR_MESSAGE'] = "AUTH FAILED"
             pass
     return jinja2_env.get_template('html/auth/login-page.html').render(context)
+
+
+@route('/logout')
+def display_logout_page(errorMessages=None):
+    '''  
+    Logout page
+    '''
+    logging.debug("IN display_logout_page()")
+    context = get_default_context(request)
+
+    # Clear authentication cookie and redirect user home page
+    #resp = redirect('/')
+    #resp.set_cookie(appconfig["application"]["auth_cookie_name"], '', expires=0)
+    #expiry = ((datetime.utcnow() + timedelta(366)) - datetime(1970, 1, 1)).total_seconds()
+    #bottle.response.set_cookie(appconfig["application"]["auth_cookie_name"], '', httponly=True, expires=0)
+    remove_auth_cookie(AUTH_COOKIE_NAME)
+    return redirect('/')
