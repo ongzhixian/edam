@@ -71,6 +71,8 @@ def display_login_page(errorMessages=None):
                 logging.info("from_url is:[{0}]".format(from_url))
                 #logging.debug("from_url is {0}".format(from_url))
                 redirect(from_url)
+            else:
+                redirect("/")
         else:
             # Display a message that authentication failed.
             context['ERROR_MESSAGE'] = "AUTH FAILED"
