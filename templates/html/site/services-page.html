@@ -7,7 +7,7 @@
 <div id="layout">
     {{ macros.render_responsive_menu_button() }}
 
-    {{ macros.render_menu("Services") }}
+    {{ macros.render_menu("Services", auth_cookie) }}
 
     <div id="main">
         <div class="header">
@@ -16,9 +16,14 @@
         </div>
 
         <div class="content">
-            <h2 class="content-subhead">Some self-service function</h2>
+            <h2 class="content-subhead">Apply for leave.</h2>
             <p>
-                A fair description of this particular service.
+                A self-service function to apply for leave.
+            </p>
+
+            <h2 class="content-subhead">Payroll/Payslips.</h2>
+            <p>
+                A self-service function to apply for leave.
             </p>
 
 

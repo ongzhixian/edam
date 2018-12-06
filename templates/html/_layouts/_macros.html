@@ -29,15 +29,14 @@
 {# Render "Menu" button #}
 {########################################}
 
-{% macro render_menu(active_text) %}
+{% macro render_menu(active_text, auth_cookie) %}
 {% 
     set menu_items = [
         { 'href' : "/", 'text' : "Home" },
         { 'href' : "/about", 'text' : "About" },
         { 'href' : "/services", 'text' : "Services" },
         { 'href' : "/ram", 'text' : "Resources" },
-        { 'href' : "/contact", 'text' : "Contact" },
-        { 'href' : "/logout", 'text' : "Log out" }
+        { 'href' : "/contact", 'text' : "Contact" }
     ]
 %}
 <div id="menu">
@@ -60,6 +59,13 @@
             <li class="pure-menu-item"><a href="{{item.href}}" class="pure-menu-link">{{item.text}}</a></li>
             {% endif %}
             {%- endfor %}
+
+            {# Render logout or Login/Register #}
+            {% if not auth_cookie %}
+            <li class="pure-menu-item"><a href="/login" class="pure-menu-link">Log in</a></li>
+            {% else %}
+            <li class="pure-menu-item"><a href="/logout" class="pure-menu-link">Log out</a></li>
+            {% endif%}
         </ul>
     </div>
 </div>
