@@ -12,13 +12,29 @@
     <div class="content">
         <h2 class="content-subhead">Test</h2>
 
-        <form method="POST">
-            <input name="email_field" id="email_field" />
-            <button type="submit">Test</button>
-        </form>
+        <p>
+            <form method="POST" action="/test">
+                <input name="email_field" id="email_field" />
+                <button type="submit">Test</button>
+            </form>
+        </p>
 
         <p>
-            <!-- Resource administration module -->
+            <form method="POST" action="/test/method2">
+                <button type="submit">Test method 2</button>
+            </form>
+        </p>
+
+        <p>
+            <form method="POST" action="/test/method3">
+                <button type="submit">Test method 3</button>
+            </form>
+        </p>
+
+        <p>
+            <form method="POST" action="/test/method4">
+                <button type="submit">Test method 4</button>
+            </form>
         </p>
 
     </div>
