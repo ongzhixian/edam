@@ -1,4 +1,4 @@
-# cron:
-# - description: "Synchronise loan applications made via Google Forms"
-#   url: /sync
-#   schedule: every 15 minutes
+cron:
+- description: "Ping"
+  url: /api/ping
+  schedule: every 5 minutes
