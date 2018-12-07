@@ -47,62 +47,40 @@ def isValidPassword(password):
 
 @route('/register', method=['POST','GET'])
 def display_register_page(errorMessages=None):
-    context = get_default_context(request)
-    if request.method == 'POST':
-        logging.info("IN POST - 1")
-        username = request.forms['username_field'].strip()
-        password = request.forms['password_field'].strip()
-        # logging.debug("posting values")
-        # for field_name in request.forms.keys():
-        #     logging.debug(field_name)
-        # logging.debug(username)
-        # logging.debug(password)
+    try:
+        context = get_default_context(request)
+        if request.method == 'POST':
+            logging.info("IN POST - 1")
+            email = request.forms['email_field'].strip()
+            password = request.forms['password_field'].strip()
+            # logging.debug("posting values")
+            # for field_name in request.forms.keys():
+            #     logging.debug(field_name)
+            # logging.debug(username)
+            # logging.debug(password)
 
-        logging.info("IN POST - 2")
-        if not isValidPassword(password):
-            context['ERROR_MESSAGE'] = "PASSWORD IS NOT SECURE."
-        else:
-            # try to save login
-            try:
-                logging.info("IN POST - 3")
-                from models.auth import Login
-                logging.info("IN POST - 4")
-                entity_key = Login.register_login(username, password)
-            except Exception as ex:
-                logging.error(ex)
-
-            logging.info("IN POST - 5")
-            if entity_key:
-                context['MESSAGE'] = { 'category': "SUCCESS", 'text' : "User registered successfully." }
+            logging.info("IN POST - 2")
+            if not isValidPassword(password):
+                context['ERROR_MESSAGE'] = "PASSWORD IS NOT SECURE."
             else:
-                context['MESSAGE'] = { 'category': "ERROR", 'text' : "Error occurred while registering user." }
-        
-        logging.info("IN POST - X")
-        # if isValidPassword(password):
-        #     # do handling of POST here
-        #     if AUTH_COOKIE_NAME not in request.cookies:
-        #         cookie_value = add_auth_cookie(AUTH_COOKIE_NAME)
-        #     else:
-        #         cookie_value = request.cookies[AUTH_COOKIE_NAME]
-        #     context['ERROR_MESSAGE'] = "AUTH OK"
-        #     # logging.debug(str(dir(request)))
-        #     # logging.debug(request.params)
-        #     # for x in request.params:
-        #     #     logging.debug(x)
-        #     # pass
-        #     logging.info("AFTER AUTH OK")
-        #     if "from" in request.params:
-        #         logging.info("in from")
-        #         from_url = urllib.unquote(request.params["from"])
-        #         logging.info("from_url is:[{0}]".format(from_url))
-        #         #logging.debug("from_url is {0}".format(from_url))
-        #         redirect(from_url)
-        #     else:
-        #         redirect("/")
-        # else:
-        #     # Display a message that authentication failed.
-        #     context['ERROR_MESSAGE'] = "AUTH FAILED"
-        #     pass
+                # try to save login
+                try:
+                    logging.info("IN POST - 3")
+                    from models.auth import Login
+                    logging.info("IN POST - 4")
+                    entity_key = Login.register_login(email, password)
+                except Exception as ex:
+                    logging.error(ex)
+
+                logging.info("IN POST - 5")
+                if entity_key:
+                    context['MESSAGE'] = { 'category': "SUCCESS", 'text' : "User registered successfully." }
+                else:
+                    context['MESSAGE'] = { 'category': "ERROR", 'text' : "Error occurred while registering user." }
+
+    except Exception as ex:
+        logging.info(ex)
+
     return jinja2_env.get_template('html/auth/register-page.html').render(context)
 
 

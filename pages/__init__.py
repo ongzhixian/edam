@@ -2,4 +2,4 @@
 # Define package composition
 ################################################################################
 
-__all__ = ["site", "auth", "ram"]
+__all__ = ["site", "auth", "ram", "test"]

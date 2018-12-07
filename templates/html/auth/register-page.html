@@ -21,8 +21,10 @@
                             Register
                         </h1>
                         <h2>{{ERROR_MESSAGE}}</h2>
+                        {% if MESSAGE %}
                         <h2>{{MESSAGE.category}}</h2>
                         <h2>{{MESSAGE.text}}</h2>
+                        {% endif %}
                     </div>
 
 
@@ -30,7 +32,7 @@
                         <!-- <label for="username_field">Username</label> -->
                     </div>
                     <div class="pure-u-3-5">
-                        <input type="text" id="username_field" name="username_field" placeholder="Username" />
+                        <input type="text" id="email_field" name="email_field" placeholder="Email" />
                     </div>
                 </div>
 

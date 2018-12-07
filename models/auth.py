@@ -13,6 +13,7 @@ from datetime import datetime
 from datetime import timedelta
 
 class Company(ndb.Model):
+    """A model representing a company."""
     name = ndb.StringProperty(required=True)
     full_name = ndb.StringProperty(required=True)
     abbreviation = ndb.StringProperty(required=True)
@@ -48,7 +49,7 @@ class Company(ndb.Model):
 # TextProperty        GeoPtProperty       LocalStructuredProperty 
 
 class Login(ndb.Model):
-    login_name = ndb.StringProperty(required=True)
+    email = ndb.StringProperty(required=True)
     password_salt = ndb.StringProperty(required=True)
     password_hash = ndb.StringProperty(required=True)
     last_login_datetime = ndb.DateTimeProperty(required=False)
@@ -67,9 +68,9 @@ class Login(ndb.Model):
         return "GEN0"
 
     @staticmethod
-    def register_login(username, password):
+    def register_login(email, password):
         new_ent = Login()
-        new_ent.login_name = username
+        new_ent.email = email
         new_ent.password_salt = Login.get_salt()
         new_ent.password_hash = Login.get_hash(new_ent.password_salt + password)
         new_ent.last_login_datetime = None

@@ -1,0 +1,27 @@
+{% extends "./html/_layouts/_test.html" %}
+
+{% block title %} Services {{SITE_NAME}} {% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="header">
+        <h1>Test</h1>
+        <h2>Test page.</h2>
+    </div>
+
+    <div class="content">
+        <h2 class="content-subhead">Test</h2>
+
+        <form method="POST">
+            <input name="email_field" id="email_field" />
+            <button type="submit">Test</button>
+        </form>
+
+        <p>
+            <!-- Resource administration module -->
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}
