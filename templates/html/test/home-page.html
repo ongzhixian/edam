@@ -12,30 +12,54 @@
     <div class="content">
         <h2 class="content-subhead">Test</h2>
 
+        <!--
+            <p>
+                <form method="POST" action="/test?step=1&date=2018">
+                    <input name="email_field" id="email_field" />
+                    <button type="submit">Test</button>
+                </form>
+            </p>
+        -->
+
         <p>
-            <form method="POST" action="/test">
-                <input name="email_field" id="email_field" />
-                <button type="submit">Test</button>
+            <form method="POST" action="/test?step=1">
+                <button type="submit" class="pure-button">Step 01</button>
             </form>
         </p>
 
         <p>
-            <form method="POST" action="/test/method2">
-                <button type="submit">Test method 2</button>
+            <form method="POST" action="/test?step=2">
+                <button type="submit"class="pure-button">Step 02</button>
             </form>
         </p>
 
         <p>
-            <form method="POST" action="/test/method3">
-                <button type="submit">Test method 3</button>
+            <form method="POST" action="/test?step=3">
+                <button type="submit"class="pure-button">Step 03</button>
             </form>
         </p>
 
-        <p>
-            <form method="POST" action="/test/method4">
-                <button type="submit">Test method 4</button>
-            </form>
-        </p>
+
+        <!--
+
+            <p>
+                <form method="POST" action="/test/method2">
+                    <button type="submit">Test method 2</button>
+                </form>
+            </p>
+            
+            <p>
+                <form method="POST" action="/test/method3">
+                    <button type="submit">Test method 3</button>
+                </form>
+            </p>
+            
+            <p>
+                <form method="POST" action="/test/method4">
+                    <button type="submit">Test method 4</button>
+                </form>
+            </p>
+        -->
 
     </div>
 </div>

@@ -12,9 +12,32 @@ from helpers.app_helpers import *
 # from helpers.mongodb_helpers import *
 # from modules.scheduling import Roster
 from google.appengine.ext import ndb
+from google.appengine.ext.ndb import polymodel
 from Crypto.Hash import SHA256
 from datetime import datetime
 from datetime import timedelta
+
+
+################################################################################
+# Available properties for defining ndb models
+
+# IntegerProperty     BlobProperty        KeyProperty                 JsonProperty
+# FloatProperty       DateTimeProperty    BlobKeyProperty             PickleProperty
+# BooleanProperty     DateProperty        UserProperty                GenericProperty
+# StringProperty      TimeProperty        StructuredProperty          ComputedProperty
+# TextProperty        GeoPtProperty       LocalStructuredProperty 
+
+# Common properties
+# indexed   (bool)      default             verbose_name    (string)
+# repeated  (bool)      choices     ([])    
+# required  (bool)      validator   (func)  
+
+# reference on modeling:
+# https://cloud.google.com/appengine/articles/modeling#relationship-model
+
+# https://cloud.google.com/appengine/docs/standard/python/ndb/entity-property-reference#properties_and_value_types
+
+# http://www.databaseanswers.org/data_models/
 
 ################################################################################
 # Setup helper functions
@@ -47,8 +70,25 @@ class Revision(ndb.Model):
 
 
 class Login(ndb.Model):
-    login_name = ndb.StringProperty()
+    login_name = ndb.StringProperty(required=True, indexed=True)
     password = ndb.StringProperty()
+
+    @staticmethod
+    def exists(login_name):
+        query = Login.query(Login.login_name == login_name)
+        result_list = query.fetch(1)
+        if len(result_list) > 0:
+            return True
+        return False
+
+    @staticmethod
+    def add(login_name, password):
+        new_ent = Login()
+        new_ent.key = ndb.Key(Login, login_name)
+        new_ent.login_name = login_name
+        new_ent.password = password
+        new_ent_key = new_ent.put()
+        return new_ent_key
 
     @staticmethod
     def register_login2(urlsafe_key, quantity):
@@ -70,7 +110,7 @@ class Task(ndb.Model):
     stars = ndb.IntegerProperty()
     tags = ndb.StringProperty(repeated=True)
     
-class Group(db.Model):
+class Group(ndb.Model):
     name = ndb.StringProperty()
     description = ndb.TextProperty()
 
@@ -87,21 +127,20 @@ class Address(ndb.Model):
 
 ##### Example of polyModel
 class Contact(polymodel.PolyModel):
-    phone_number = ndb.PhoneNumberProperty()
-    address = ndb.PostalAddressProperty()
+    # phone_number = ndb.PhoneNumberProperty()
+    # address = ndb.PostalAddressProperty()
+    type_name = ndb.StringProperty()
+    pass
 
 class PersonContact(Contact):
-    first_name = ndb.StringProperty()
-    last_name = ndb.StringProperty()
-    mobile_number = ndb.PhoneNumberProperty()
+    first_name1 = ndb.StringProperty()
+    last_name2 = ndb.StringProperty()
+    #mobile_number = ndb.PhoneNumberProperty()
 
 class CompanyContact(Contact):
     name = ndb.StringProperty()
-    fax_number = ndb.PhoneNumberProperty()
+    #fax_number = ndb.PhoneNumberProperty()
 
-
-class UserProfile(ndb.Model):
-    access = ndb.KeyProperty(kind=Group, repeated=True)
 
 
 # class Contact(db.Model):
@@ -124,14 +163,38 @@ class UserProfile(ndb.Model):
 #     # Group affiliation
 #     groups = db.ListProperty(db.Key)
 
-class Company(ndb.Model):
-    """A model representing a company."""
-    name = ndb.StringProperty()
-    description = ndb.TextProperty()
-    company_address = ndb.StringProperty()
-    preferred_address = ndb.KeyProperty(Address)
-    addresses = ndb.StructuredProperty(Address, repeated=True)
-    contacts = ndb.StructuredProperty(Contact, repeated=True)
+class UserRoles(ndb.Model):
+    pass
+
+
+class PersonalProfile(ndb.Model):
+    first_name = ndb.StringProperty(required=False)
+    last_name = ndb.StringProperty(required=False)
+    display_name = ndb.StringProperty(required=False)
+    national_id = ndb.StringProperty(required=False)
+    email = ndb.StringProperty(required=True)
+    access = ndb.KeyProperty(kind=Group, repeated=True)
+    login = ndb.KeyProperty(kind=Login, repeated=True)
+
+    @staticmethod
+    def exists(login_key):
+        try:
+            #query = Article.query(Article.tags.IN(['python', 'ruby', 'php']))
+            search_key = ndb.Key(Login, login_key)
+            logging.info("In PersonalProfile exists")
+            query = PersonalProfile.query(PersonalProfile.login.IN([search_key]))
+            logging.info("get query")
+            result_list = query.fetch(1)
+            logging.info("fetch")
+            if len(result_list) > 0:
+                logging.info("return true")
+                return True
+            logging.info("return false")
+            return False
+        except Exception as ex:
+            logging.error(ex)
+
+
 
 
 class Employee(ndb.Model):
@@ -141,5 +204,28 @@ class Employee(ndb.Model):
     display_name = ndb.StringProperty(required=True)
     national_id = ndb.StringProperty(required=True)
     email = ndb.StringProperty(required=True)
-    company = ndb.KeyProperty(Company)
+    #company = ndb.KeyProperty(Company)
+    contacts = ndb.KeyProperty(kind=Contact, repeated=True)
+    #contacts = ndb.StructuredProperty(PersonContact, repeated=True)
+
+
+
+class Company(ndb.Model):
+    """A model representing a company."""
+    name = ndb.StringProperty(required=True)
+    description = ndb.TextProperty()
+    company_address = ndb.StringProperty()
+    preferred_address = ndb.KeyProperty(Address)
+    addresses = ndb.KeyProperty(kind=Address, repeated=True)
+    employees = ndb.KeyProperty(kind=Employee, repeated=True)
     #contacts = ndb.StructuredProperty(Contact, repeated=True)
+    # TODO: method to add address
+    # TODO: method to add employee
+    
+    @staticmethod
+    def exists(name):
+        query = Company.query(Company.name == name)
+        result_list = query.fetch(1)
+        if len(result_list) > 0:
+            return True
+        return False

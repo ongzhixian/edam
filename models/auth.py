@@ -12,29 +12,29 @@ from Crypto.Hash import SHA256
 from datetime import datetime
 from datetime import timedelta
 
-class Company(ndb.Model):
-    """A model representing a company."""
-    name = ndb.StringProperty(required=True)
-    full_name = ndb.StringProperty(required=True)
-    abbreviation = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(required=True)
-    registration_number = ndb.IntegerProperty(default=-1, required=True)
-    registration_date = ndb.DateProperty(default=None)
+# class Company(ndb.Model):
+#     """A model representing a company."""
+#     name = ndb.StringProperty(required=True)
+#     full_name = ndb.StringProperty(required=True)
+#     abbreviation = ndb.StringProperty(required=True)
+#     description = ndb.StringProperty(required=True)
+#     registration_number = ndb.IntegerProperty(default=-1, required=True)
+#     registration_date = ndb.DateProperty(default=None)
 
-    @staticmethod
-    def get_all():
-        result = []
-        query = Company.query().order(Company.name)
-        for rec in query:
-            result.append({
-                'key' : rec.key.urlsafe(),
-                'name' : rec.name,
-                'full_name' : rec.full_name,
-                'abbreviation' : rec.abbreviation,
-                'description' : rec.description,
-                'registration_date' : rec.registration_date
-            })
-        return result
+#     @staticmethod
+#     def get_all():
+#         result = []
+#         query = Company.query().order(Company.name)
+#         for rec in query:
+#             result.append({
+#                 'key' : rec.key.urlsafe(),
+#                 'name' : rec.name,
+#                 'full_name' : rec.full_name,
+#                 'abbreviation' : rec.abbreviation,
+#                 'description' : rec.description,
+#                 'registration_date' : rec.registration_date
+#             })
+#         return result
 
 ################################################################################
 # Setup model classes
